@@ -1,0 +1,8 @@
+{
+  "build_pack": "nixpacks",
+  "base_directory": "/Backend",
+  "ports_exposes": "8080",
+  "settings": {
+    "is_static": false
+  }
+}

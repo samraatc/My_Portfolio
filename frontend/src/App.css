@@ -1,0 +1,977 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+.navbar {
+  background-color: #dcf0f1;
+}
+.nav-link {
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link::before {
+  transition: 300ms;
+  height: 3px;
+  content: "";
+  position: absolute;
+  border-radius: 5px;
+  background-color: #087075;
+}
+
+.nav-hover::before {
+  width: 0%;
+  bottom: 10px;
+}
+
+.nav-hover:hover::before {
+  width: 70%;
+}
+
+
+body::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar {
+  width: 7px;
+  /* background-color: #F5F5F5; */
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #66dce2;
+}
+
+body {
+  font-family: "Fira Sans", sans-serif;
+}
+
+#home {
+  min-height:100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+#home a {
+  color: rgb(37, 35, 35);
+}
+#home p {
+  font-size: 25px;
+}
+#home i {
+  cursor: pointer;
+  transition: 0.5s;
+}
+#home i:hover {
+  color: rgb(146, 146, 0);
+}
+#scrollBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+#skills i {
+  height: 100px;
+  width: 100px;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#skills i:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+#projects .col-lg-4 {
+  padding: 20px;
+}
+#projects .card {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 10px auto;
+  cursor: pointer;
+  position: relative;
+  color: white;
+}
+#projects .card-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  display: none;
+}
+#projects .card:hover .card-body {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#education .education {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: rgba(46, 223, 193, 0.5);
+}
+#education .education:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  #home img {
+    margin-bottom: 30px;
+    width: 200px;
+  }
+  #home .col-md-8 {
+    align-items: center;
+    text-align: center;
+    padding: 0px;
+  }
+  #home p {
+    width: 100%;
+    font-size: 18px;
+  }
+}
+@media (max-width: 370px) {
+  #home h1 {
+    font-size: 25px;
+  }
+}
+
+
+/* Add typing animation */
+.typing-animation {
+  border-right: 2px solid;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: black }
+}
+
+
+/* Add this to your CSS file or in a <style> tag */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease-out;
+}
+
+
+
+.skills .title::after{
+  content: "what i know";
+}
+.skills .skills-content .column{
+  width: calc(50% - 30px);
+}
+.skills .skills-content .left .text{
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.skills .skills-content .left p{
+  text-align: justify;
+}
+.skills .skills-content .left a{
+  display: inline-block;
+  /* background: crimson; */
+  color: crimson;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 16px;
+  margin-top: 20px;
+  border-radius: 6px;
+  border: 2px solid crimson;
+  transition: 0.3s ease-in-out;
+}
+.skills .skills-content .left a:hover{
+  color: white;
+  background: crimson;
+}
+.skills .skills-content .left p #link
+{
+  border: none;
+  text-decoration: none;
+  color: crimson;
+}
+
+.skills .skills-content .left p #link:hover
+{
+  color: crimson;
+  /* text-transform: uppercase; */
+  text-decoration: underline;
+  background: none;
+}
+.skills .skills-content .right .bars{
+  margin-bottom: 15px;
+}
+.skills .skills-content .right .info{
+  display: flex;
+  margin-bottom: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+.skills .skills-content .right span{
+  font-weight: 500;
+  font-size: 18px;
+}
+.skills .skills-content .right .line{
+  height: 5px;
+  width: 100%;
+  background: lightgrey;
+  position: relative;
+}
+.skills .skills-content .right .line::before{
+  content: "";
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: crimson;
+}
+.skills-content .right .html::before{
+  width: 90%;
+}
+.skills-content .right .css::before{
+  width: 60%;
+}
+.skills-content .right .js::before{
+  width: 50%;
+}
+.skills-content .right .php::before{
+  width: 50%;
+}
+.skills-content .right .mysql::before{
+  width: 85%;
+}
+.skills-content .right .wordpress::before{
+  width: 75%;
+}
+
+
+/* projects section styling */
+
+
+.about, .services, .skills, .teams, .contact, footer{
+  font-family: 'Poppins', sans-serif;
+}
+.about .about-content,
+.services .serv-content,
+.skills .skills-content,
+.contact .contact-content{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+section .title{
+  position: relative;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 500;
+  margin-bottom: 60px;
+  padding-bottom: 20px;
+  font-family: 'Ubuntu', sans-serif;
+}
+section .title::before{
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  width: 180px;
+  height: 3px;
+  background: #111;
+  transform: translateX(-50%);
+}
+section .title::after{
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  font-size: 20px;
+  color: crimson;
+  padding: 0 5px;
+  background: #fff;
+  transform: translateX(-50%);
+}
+
+/* ....................................... */
+
+
+@media (max-width: 991px) {
+ 
+  
+  .skills .skills-content .column,
+  .contact .contact-content .column{
+      width: 100%;
+      margin-bottom: 35px;
+  }
+}
+
+
+/* loder */
+
+
+.loader {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  background-image:
+    linear-gradient(#FFF 16px, transparent 0) ,
+    linear-gradient(#FF3D00 16px, transparent 0) ,
+    linear-gradient(#FF3D00 16px, transparent 0) ,
+    linear-gradient(#FFF 16px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: left top , left bottom , right top , right bottom;
+  animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+  0% {
+    width: 64px;
+    height: 64px;
+    transform: rotate(0deg)
+  }
+  50% {
+    width: 30px;
+    height: 30px;
+    transform: rotate(180deg)
+  }
+  100% {
+    width: 64px;
+    height: 64px;
+    transform: rotate(360deg)
+  }
+}
+
+
+/*  button anination */
+@mixin colorChange($color, $amount) {
+  color: lighten($color, $amount);
+  background-color: $color;
+}
+
+.button {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  min-height: 40px;
+  user-select: none;
+  color: #EC4899;
+  padding: 8px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #EC4899;
+  transition: all 0.5s ease;
+  z-index: 1;
+
+  &:hover {
+    color: #FFF; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #EC4899;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+
+.button1 {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #fbfbfb;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #ffffff;
+  transition: all 0.5s ease;
+  z-index: 1;
+ 
+
+  &:hover {
+    color: #000000; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #ffffff;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+.buttonDelete {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #c02121;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #cf1d1d;
+  transition: all 0.5s ease;
+  z-index: 1;
+ 
+
+  &:hover {
+    color: #ffffff; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #c02424e5;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+.certificate-btn {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #f51ba1;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #ff22bd;
+  transition: all 0.5s ease;
+  z-index: 1;
+  margin: 40px;
+
+  &:hover {
+    color: #ffffff; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #ff00b3;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+.certificate-btn-delete {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #fa0000;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #ff0606;
+  transition: all 0.5s ease;
+  z-index: 1;
+  margin: 40px;
+
+  &:hover {
+    color: #ffffff; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #ff0000;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+
+
+
+.buttonView {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #fbfbfb;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #ffffff;
+  transition: all 0.5s ease;
+  z-index: 1;
+  
+
+  &:hover {
+    color: #000000; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #ffffff;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+
+.buttonView1 {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #000000;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #000000;
+  transition: all 0.5s ease;
+  z-index: 1;
+  
+
+  &:hover {
+    color: #fffefe; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #000000;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+
+.buttonGitHub {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #0531f9;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #1547ec;
+  transition: all 0.5s ease;
+  z-index: 1;
+  
+
+  &:hover {
+    color: #ffffff; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #1955d4;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+
+
+.buttonLive-Demo {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #f94205;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #ec2e15;
+  transition: all 0.5s ease;
+  z-index: 1;
+  
+
+  &:hover {
+    color: #ffffff; /* Text color becomes white on hover */
+    @include colorChange(#4287f5, 10%);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #d41919;
+    z-index: -10;
+    transition: width 0.5s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+
+/*  Experience skillbtn */
+
+
+.Add-Experience {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; /* Default font size */
+  min-height: 40px;
+  font-weight: 500;
+  user-select: none;
+  color: #1221ff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid #6200ff;
+  transition: all 0.5s ease;
+  z-index: 1;
+  display: inline-block;
+  width: 100%; /* Full width for smaller screens */
+  max-width: 300px; /* Limit max width */
+}
+
+.Add-Experience:hover {
+  color: #ffffff;
+  background-color: #4287f5; /* Background color change on hover */
+}
+
+.Add-Experience::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 1px;
+  background-color: #0400ff;
+  z-index: -1;
+  transition: width 0.5s ease;
+}
+
+.Add-Experience:hover::before {
+  width: 100%;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  .Add-Experience {
+    font-size: 12px; /* Smaller font size */
+    padding: 8px 10px; /* Adjust padding for smaller screens */
+    min-height: 35px;
+  }
+}
+
+/* Responsive styles for very small screens (e.g., phones) */
+@media (max-width: 480px) {
+  .Add-Experience {
+    font-size: 10px; /* Further reduce font size */
+    padding: 6px 12px; /* More compact padding */
+    min-height: 30px;
+    max-width: 100%; /* Full width on mobile */
+  }
+}
+
+
+/*  sending sms  */
+
+
+.send {
+  width: 32px;
+  height: 90px;
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  border-radius: 50% 50% 0 0;
+  border-bottom: 10px solid #FF3D00;
+  background-color: #FFF;
+  background-image: radial-gradient(ellipse at center, #FFF 34%, #FF3D00 35%, #FF3D00 54%, #FFF 55%), linear-gradient(#FF3D00 10px, transparent 0);
+  background-size: 28px 28px;
+  background-position: center 20px , center 2px;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: animloaderBack 1s linear infinite alternate;
+}
+.send::before {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: 0px 15px #FF3D00 inset;
+  top: 67px;
+}
+.send::after {
+  content: '';  
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 34px;
+  height: 34px;
+  top: 112%;
+  background: radial-gradient(ellipse at center, #ffdf00 8%, rgba(249, 62, 0, 0.6) 24%, rgba(0, 0, 0, 0) 100%);
+  border-radius: 50% 50% 0;
+  background-repeat: no-repeat;
+  background-position: -44px -44px;
+  background-size: 100px 100px;
+  box-shadow: 4px 4px 12px 0px rgba(255, 61, 0, 0.5);
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloaderBack {
+  0%, 30%, 70% {
+    transform: translateY(0px);
+  }
+  20%, 40%, 100% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 4px 4px 12px 2px rgba(255, 61, 0, 0.75);
+    width: 34px;
+    height: 34px;
+    background-position: -44px -44px;
+    background-size: 100px 100px;
+  }
+  100% {
+    box-shadow: 2px 2px 8px 0px rgba(255, 61, 0, 0.5);
+    width: 30px;
+    height: 28px;
+    background-position: -36px -36px;
+    background-size: 80px 80px;
+  }
+}
+
+
+/* view All skill skillbtn */
+
+.skillbtn-12{
+  position: relative;
+  right: 20px;
+  bottom: 20px;
+  border:none;
+  box-shadow: none;
+  width: 130px;
+  height: 40px;
+  line-height: 42px;
+  -webkit-perspective: 230px;
+  perspective: 230px;
+}
+.skillbtn-12 span {
+  background: rgb(0,172,238);
+background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 40px;
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  border-radius: 5px;
+  margin:0;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+.skillbtn-12 span:nth-child(1) {
+  box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+.skillbtn-12 span:nth-child(2) {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+.skillbtn-12:hover span:nth-child(1) {
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+.skillbtn-12:hover span:nth-child(2) {
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+ color: transparent;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}

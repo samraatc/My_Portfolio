@@ -1,0 +1,6 @@
+{
+  "type": "static",
+  "output_directory": "dist",
+  "install": "npm install",
+  "build": "npm run build"
+}
