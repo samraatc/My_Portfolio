@@ -9,18 +9,34 @@ on :
 jobs:
   Deploy:
     runs-on: ubuntu-latest
+    environment: VERSAL_TOKEN
     
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
 
+      - name: "Set up Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+
+      - name: "set-up Vercel"
+        run: |
+          npm install -g @vercel/cli
+          vercel login --token ${{ secrets.VERSAL_TOKEN }}
+
       - name: "Download Product-ready build file"
         uses: actions/download-artifact@v4
         with:
           name: "product-ready-build"
-          path: ./build
+          run_id: ${{ github.event.workflow_run.id }}
+          github_token: ${{ github.token }}
 
       - name: "Deploy to production"
-        run: |
+        run: vercel --prod --token=$VERSAL_TOKEN --confirm --name=CI/CD_Production_Test
+        env:
+          VERSAL_TOKEN: ${{ secrets.VERSAL_TOKEN }}
           echo "Deploying to production..."
           # Add your deployment commands here
+
+       
