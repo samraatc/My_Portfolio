@@ -9,42 +9,44 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest       # Runner environment
-    environment: production      # GitHub Environment (Better than naming after a token)
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # only run if CI succeeded
+    runs-on: ubuntu-latest
+    environment: production
 
     steps:
-      # Step 1: Checkout latest code (not mandatory but recommended)
+      # Step 1: Checkout repo (not strictly required for artifact-only deploy)
       - name: "Checkout code"
         uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js
+      # Step 2: Set up Node.js
       - name: "Set up Node.js"
         uses: actions/setup-node@v4
         with:
           node-version: '21'
 
-      - name: "list all working-directory:" # list the all directory
+      - name: "List all working-directory files"
         run: ls -la
 
-      - name: "install all dependencies"
+      - name: "Install all dependencies"
         run: npm install
 
       # Step 3: Install Vercel CLI
       - name: "Set up Vercel CLI"
-        run: |
-          npm install -g @vercel/cli
+        run: npm install -g @vercel/cli
 
-      # Step 4: Download build artifact from CI pipeline
-      - name: "Download Product-ready build file"
+      # Step 4: Download build artifact from CI
+      - name: "Download frontend build artifact"
         uses: actions/download-artifact@v4
         with:
-          name: product-ready-build   # must match the CI upload name
-          run-id: ${{ github.event.workflow_run.id }} # get artifacts from triggering workflow
+          name: frontend-build   # must match CI upload name
+
+      - name: "Verify artifact contents"
+        run: ls -la
 
       # Step 5: Deploy to Vercel
       - name: "Deploy to production"
         run: |
           echo "Deploying to production..."
           vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --name=CI-CD-Production-Test
-        env: 
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}  # Auth via GitHub Secrets
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
