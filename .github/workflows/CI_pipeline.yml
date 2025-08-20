@@ -1,43 +1,45 @@
 name: "CI Pipeline"
 
-# Workflow Triggers
+# Triggers:
+# - Runs on push/pull_request to main/master branches
+# - Can also be triggered manually via workflow_dispatch
 on:
-  push:             # Run CI when code is pushed
-    branches:
-      - main
-      - master
-  pull_request:     # Run CI when PR is opened against main/master
-    branches:
-      - main
-      - master
-  workflow_dispatch: # Allow manual workflow trigger from GitHub UI
+  push:
+    branches: [main, master]             # Listen for pushes to main/master
+  pull_request:
+    branches: [main, master]             # Listen for PRs targeting main/master
+  workflow_dispatch:                     # Allow manual trigger
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest # Use Ubuntu latest for the runner
+    runs-on: ubuntu-latest               # Use latest Ubuntu VM for the job
 
     steps:
-      # Step 1: Checkout source code
+      # Step 1: Check out repo code into the runner
       - name: "Checkout code"
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js
+      # Step 2: Set up Node.js v21 for subsequent steps
       - name: "Set up Node.js"
         uses: actions/setup-node@v4
         with:
           node-version: '21'
 
-      # Step 3: Install project dependencies
+      # Step 3: Install project dependencies using npm
+      # Specify working-directory if package.json is in a subfolder
       - name: "Install dependencies"
         run: npm install
+        # working-directory: My_Portfolio  # <--- Uncomment and set if needed
 
-      # Step 4: Build the project
+      # Step 4: Build the project with npm
       - name: "Run build"
         run: npm run build
+        # working-directory: My_Portfolio  # <--- Uncomment and set if needed
 
-      # Step 5: Upload build artifacts (output directory)
+      # Step 5: Upload built files as artifacts for CD pipeline
       - name: "Upload Product-ready build file"
         uses: actions/upload-artifact@v4
         with:
-          name: product-ready-build   # standard artifact name
-          path: dist                  # path to upload
+          name: product-ready-build         # Name for artifact (must match CD pipeline)
+          path: dist                       # Path to build output (adjust if needed)
+          # path: My_Portfolio/dist         # <--- Use if build output in subfolder
