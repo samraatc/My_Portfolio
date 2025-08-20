@@ -35,7 +35,7 @@ jobs:
 
       # Step 3: Install Vercel CLI
       - name: "Set up Vercel CLI"
-        run: npm install -g @vercel/cli
+        run: npm install -g vercel@latest
 
       # Step 4: Download build artifact from CI
       - name: "Download frontend build artifact"
