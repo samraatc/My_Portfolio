@@ -50,43 +50,43 @@ jobs:
           name: frontend-build             # Artifact name
           path: dist                       # Adjust if build output folder is different
 
-  # Job for Backend
-  backend-build:
-    name: "Backend Build and Test"
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Backend          # All steps run from 'Backend' folder
+  # # Job for Backend
+  # backend-build:
+  #   name: "Backend Build and Test"
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: Backend          # All steps run from 'Backend' folder
 
-    steps:
-      # Step 1: Checkout code
-      - name: "Checkout code"
-        uses: actions/checkout@v4
+  #   steps:
+  #     # Step 1: Checkout code
+  #     - name: "Checkout code"
+  #       uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js
-      - name: "Set up Node.js"
-        uses: actions/setup-node@v4
-        with:
-          node-version: '21'
+  #     # Step 2: Set up Node.js
+  #     - name: "Set up Node.js"
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '21'
 
-      - name: "list all working-directory:"
-        run: ls -la
+  #     - name: "list all working-directory:"
+  #       run: ls -la
 
-      # Step 3: Install backend dependencies
-      - name: "Install dependencies"
-        run: npm install
+  #     # Step 3: Install backend dependencies
+  #     - name: "Install dependencies"
+  #       run: npm install
 
-      # Step 4: Build backend project (adjust if your backend doesn't need this)
-      - name: "Build backend"
-        run: npm run build
+  #     # Step 4: Build backend project (adjust if your backend doesn't need this)
+  #     # - name: "Build backend"
+  #     #   run: npm run build
 
-      # Step 5: Run backend tests (optional, uncomment if needed)
-      # - name: "Test backend"
-      #   run: npm test
+  #     # Step 5: Run backend tests (optional, uncomment if needed)
+  #     # - name: "Test backend"
+  #     #   run: npm test
 
-      # Step 6: Upload backend build artifact (optional)
-      - name: "Upload backend build"
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-build
-          path: dist                        # Adjust if build output folder is different
+  #     # Step 6: Upload backend build artifact (optional)
+  #     - name: "Upload backend build"
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: backend-build
+  #         path: dist                        # Adjust if build output folder is different
