@@ -11,6 +11,9 @@ jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }} # only run if CI succeeded
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend   # Set default working directory
     environment: production
 
     steps:
