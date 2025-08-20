@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Backend   # Set default working directory
+        working-directory: frontend   # Set default working directory
     environment: production
 
     steps:
