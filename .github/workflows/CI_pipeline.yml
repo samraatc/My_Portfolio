@@ -41,5 +41,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: product-ready-build         # Name for artifact (must match CD pipeline)
-          path: dist                       # Path to build output (adjust if needed)
+          path:  My_Portfolio/dist                       # Path to build output (adjust if needed)
           # path: My_Portfolio/dist         # <--- Use if build output in subfolder
