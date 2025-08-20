@@ -1,45 +1,89 @@
 name: "CI Pipeline"
 
-# Triggers:
-# - Runs on push/pull_request to main/master branches
-# - Can also be triggered manually via workflow_dispatch
+# Trigger the workflow on push, pull request, or manual trigger to main/master
 on:
   push:
-    branches: [main, master]             # Listen for pushes to main/master
+    branches: [main, master]
   pull_request:
-    branches: [main, master]             # Listen for PRs targeting main/master
-  workflow_dispatch:                     # Allow manual trigger
+    branches: [main, master]
+  workflow_dispatch:
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest               # Use latest Ubuntu VM for the job
+  # Job for Frontend
+  frontend-build:
+    name: "Frontend Build and Test"         # Job name
+    runs-on: ubuntu-latest                  # Use Ubuntu runner
+    defaults:
+      run:
+        working-directory: frontend         # All steps run from 'frontend' folder
 
     steps:
-      # Step 1: Check out repo code into the runner
+      # Step 1: Checkout code
       - name: "Checkout code"
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js v21 for subsequent steps
+      # Step 2: Set up Node.js
       - name: "Set up Node.js"
         uses: actions/setup-node@v4
         with:
           node-version: '21'
 
-      # Step 3: Install project dependencies using npm
-      # Specify working-directory if package.json is in a subfolder
+      - name: "list all working-directory:"
+        run: ls -la
+
+      # Step 3: Install frontend dependencies
       - name: "Install dependencies"
         run: npm install
-        # working-directory: My_Portfolio  # <--- Uncomment and set if needed
 
-      # Step 4: Build the project with npm
-      - name: "Run build"
+      # Step 4: Build frontend project
+      - name: "Build frontend"
         run: npm run build
-        # working-directory: My_Portfolio  # <--- Uncomment and set if needed
 
-      # Step 5: Upload built files as artifacts for CD pipeline
-      - name: "Upload Product-ready build file"
+      # Step 5: Run frontend tests (optional, uncomment if needed)
+      # - name: "Test frontend"
+      #   run: npm test
+
+      # Step 6: Upload frontend build artifact
+      - name: "Upload frontend build"
         uses: actions/upload-artifact@v4
         with:
-          name: product-ready-build         # Name for artifact (must match CD pipeline)
-          path:  My_Portfolio/dist                       # Path to build output (adjust if needed)
-          # path: My_Portfolio/dist         # <--- Use if build output in subfolder
+          name: frontend-build             # Artifact name
+          path: dist                       # Adjust if build output folder is different
+
+  # Job for Backend
+  backend-build:
+    name: "Backend Build and Test"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend          # All steps run from 'Backend' folder
+
+    steps:
+      # Step 1: Checkout code
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js
+      - name: "Set up Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+
+      # Step 3: Install backend dependencies
+      - name: "Install dependencies"
+        run: npm install
+
+      # Step 4: Build backend project (adjust if your backend doesn't need this)
+      - name: "Build backend"
+        run: npm run build
+
+      # Step 5: Run backend tests (optional, uncomment if needed)
+      # - name: "Test backend"
+      #   run: npm test
+
+      # Step 6: Upload backend build artifact (optional)
+      - name: "Upload backend build"
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-build
+          path: dist                        # Adjust if build output folder is different
