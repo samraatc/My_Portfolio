@@ -1,42 +1,44 @@
 name: "CD Pipeline"
 
-on :
-   workflow_run:
-     workflows: ["CI Pipeline"]
-     types:
-       - completed
+# Trigger this workflow after CI pipeline completes
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]   # The workflow to watch
+    types:
+      - completed                # Trigger on successful CI completion
 
 jobs:
-  Deploy:
-    runs-on: ubuntu-latest
-    environment: VERSAL_TOKEN
-    
+  deploy:
+    runs-on: ubuntu-latest       # Runner environment
+    environment: production      # GitHub Environment (Better than naming after a token)
+
     steps:
+      # Step 1: Checkout latest code (not mandatory but recommended)
       - name: "Checkout code"
         uses: actions/checkout@v4
 
+      # Step 2: Setup Node.js
       - name: "Set up Node.js"
         uses: actions/setup-node@v4
         with:
           node-version: '21'
 
-      - name: "set-up Vercel"
+      # Step 3: Install Vercel CLI
+      - name: "Set up Vercel CLI"
         run: |
           npm install -g @vercel/cli
-          vercel login --token ${{ secrets.VERSAL_TOKEN }}
 
+      # Step 4: Download build artifact from CI pipeline
       - name: "Download Product-ready build file"
         uses: actions/download-artifact@v4
         with:
-          name: "product-ready-build"
-          run_id: ${{ github.event.workflow_run.id }}
-          github_token: ${{ github.token }}
+          name: product-ready-build   # must match the CI upload name
+          run-id: ${{ github.event.workflow_run.id }} # get artifacts from triggering workflow
 
+      # Step 5: Deploy to Vercel
       - name: "Deploy to production"
-        run: vercel --prod --token=$VERSAL_TOKEN --confirm --name=CI/CD_Production_Test
-        env:
-          VERSAL_TOKEN: ${{ secrets.VERSAL_TOKEN }}
+        run: |
           echo "Deploying to production..."
-          # Add your deployment commands here
-
-       
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --name=CI-CD-Production-Test
+        env: 
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}  # Auth via GitHub Secrets

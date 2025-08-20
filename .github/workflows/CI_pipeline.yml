@@ -1,53 +1,43 @@
-name : "CI Pipeline"
+name: "CI Pipeline"
+
+# Workflow Triggers
 on:
-  push:
+  push:             # Run CI when code is pushed
     branches:
       - main
       - master
-  pull_request:
+  pull_request:     # Run CI when PR is opened against main/master
     branches:
       - main
       - master
-  workflow_dispatch:
+  workflow_dispatch: # Allow manual workflow trigger from GitHub UI
 
 jobs:
-  Build-and-test:
-    runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ubuntu-latest # Use Ubuntu latest for the runner
+
     steps:
+      # Step 1: Checkout source code
       - name: "Checkout code"
         uses: actions/checkout@v4
 
+      # Step 2: Set up Node.js
       - name: "Set up Node.js"
         uses: actions/setup-node@v4
         with:
           node-version: '21'
-        
-      - name: "clone the repository"
-        uses: actions/checkout@v4
 
+      # Step 3: Install project dependencies
       - name: "Install dependencies"
         run: npm install
 
-      - name: "Run Build "
+      # Step 4: Build the project
+      - name: "Run build"
         run: npm run build
 
-      - name : "Upload Product-ready build file"
+      # Step 5: Upload build artifacts (output directory)
+      - name: "Upload Product-ready build file"
         uses: actions/upload-artifact@v4
         with:
-          name: "product-ready-build"
-          path: dist
-
-  pull_request:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v4
-
-      - name: "Set up Node.js"
-        uses: actions/setup-node@v4
-        with:
-          node-version: '21'
-
-      - name: "Install dependencies"
-        run: npm install
-
+          name: product-ready-build   # standard artifact name
+          path: dist                  # path to upload
