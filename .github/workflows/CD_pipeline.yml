@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: '21'
 
+      - name: "list all working-directory:" # list the all directory
+        run: ls -la
+
+      - name: "install all dependencies"
+        run: npm install
+
       # Step 3: Install Vercel CLI
       - name: "Set up Vercel CLI"
         run: |
