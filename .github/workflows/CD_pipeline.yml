@@ -41,7 +41,7 @@ jobs:
       - name: "Download frontend build artifact"
         uses: actions/download-artifact@v4
         with:
-          name: build   # must match CI upload name
+          name: build   # must match CI upload name artifact name
 
       - name: "Verify artifact contents"
         run: ls -la
