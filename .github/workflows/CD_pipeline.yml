@@ -35,7 +35,7 @@ jobs:
 
       # Step 3: Install Vercel CLI
       - name: "Set up Vercel CLI"
-        run: npm install -g vercel@latest
+        run: npm install -g vercel
 
       # Step 4: Download build artifact from CI
       - name: "Download frontend build artifact"
@@ -47,9 +47,13 @@ jobs:
         run: ls -la
 
       # Step 5: Deploy to Vercel
-      - name: "Deploy to production"
+      - name: "deployed demo "
         run: |
-          echo "Deploying to production..."
-          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --name=CI-CD-Production-Test
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          echo "Deploying to demo..."
+         
+      # - name: "Deploy to production"
+      #   run: |
+      #     echo "Deploying to production..."
+      #     vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --name=CI-CD-Production-Test
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

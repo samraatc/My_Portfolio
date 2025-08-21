@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build             # Artifact name
-          path: dist                       # Adjust if build output folder is different
+          path: frontend/dist                       # Adjust if build output folder is different
 
   # # Job for Backend
   # backend-build:
