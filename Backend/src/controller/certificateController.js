@@ -1,12 +1,14 @@
 import Certificate from '../models/Certificate.js';
-import uploadOnCloudinary from '../utils/cloudinary.js'; // Adjust the path as needed
+import uploadOnCloudinary from '../utils/cloudinary.js'; // Adjust path as needed
 import path from 'path';
 
 export const createCertificate = async (req, res) => {
   try {
+    console.log("Request body:", req.body); // Debug log
+    console.log("Received files:", req.files); // Debug log
+
     let imageLocalPath = null;
 
-    // Check if the file is present
     if (req.files && req.files.image && req.files.image.length > 0) {
       imageLocalPath = req.files.image[0].path;
     }
@@ -15,9 +17,7 @@ export const createCertificate = async (req, res) => {
       return res.status(400).send("Image file is required");
     }
 
- 
-
-    // Upload the image to Cloudinary
+    // Upload image to Cloudinary
     const imageUploadResult = await uploadOnCloudinary(imageLocalPath);
 
     if (!imageUploadResult) {
@@ -26,27 +26,28 @@ export const createCertificate = async (req, res) => {
 
     console.log("Cloudinary image URL:", imageUploadResult.secure_url);
 
-    // Create a new certificate
+    // Create new certificate with date conversions
     const newCertificate = new Certificate({
       name: req.body.name,
       description: req.body.description,
       session: {
-        start: req.body.startDate,
-        end: req.body.endDate,
+        start: new Date(req.body.startDate),
+        end: new Date(req.body.endDate),
       },
       organization: req.body.organization,
-      issuedDate: req.body.issuedDate,
-      image: imageUploadResult.secure_url, // Use secure_url for the image URL
+      issuedDate: req.body.issuedDate ? new Date(req.body.issuedDate) : undefined,
+      image: imageUploadResult.secure_url,
     });
 
-    // Save the certificate
     await newCertificate.save();
     res.status(201).json(newCertificate);
+
   } catch (error) {
     console.error("Error creating certificate:", error);
     res.status(500).json({ error: 'Failed to create certificate' });
   }
 };
+
 
 export const deleteCertificate = async (req, res) => {
   try {
@@ -60,20 +61,32 @@ export const deleteCertificate = async (req, res) => {
   }
 };
 
+
 export const updateCertificate = async (req, res) => {
   try {
     const { id } = req.params;
-    let imageUrl = req.body.image; // Preserve existing image URL if not updating
+    let imageUrl = req.body.image; // preserve existing image URL if no new image
 
-    if (req.file) {
-      const filePath = path.join(__dirname, '../public/temp', req.file.filename);
+    if (req.files && req.files.image && req.files.image.length > 0) {
+      const filePath = req.files.image[0].path;
       const result = await uploadOnCloudinary(filePath);
       imageUrl = result ? result.secure_url : imageUrl;
     }
 
+    // Convert date strings to Date objects if present
+    const updatedData = {
+      ...req.body,
+      image: imageUrl,
+      session: {
+        start: new Date(req.body.startDate),
+        end: new Date(req.body.endDate),
+      },
+      issuedDate: req.body.issuedDate ? new Date(req.body.issuedDate) : undefined,
+    };
+
     const updatedCertificate = await Certificate.findByIdAndUpdate(
       id,
-      { ...req.body, image: imageUrl },
+      updatedData,
       { new: true }
     );
 
@@ -84,6 +97,7 @@ export const updateCertificate = async (req, res) => {
     res.status(500).json({ error: 'Failed to update certificate' });
   }
 };
+
 
 export const getCertificateById = async (req, res) => {
   try {
@@ -96,8 +110,6 @@ export const getCertificateById = async (req, res) => {
     res.status(500).json({ error: 'Failed to get certificate' });
   }
 };
-
-
 
 export const getAllCertificates = async (req, res) => {
   try {
