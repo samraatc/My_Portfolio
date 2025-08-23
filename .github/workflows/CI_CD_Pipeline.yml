@@ -65,7 +65,7 @@ jobs:
           path: ./frontend/dist/   # same as upload path
 
       - name: Verify build files
-        run: ls -la ./Workflow_Practice/dist
+        run: ls -la ./frontend/dist
 
       - name: Deploying to Vercel
         run: echo "🚀 Deploying the project"
