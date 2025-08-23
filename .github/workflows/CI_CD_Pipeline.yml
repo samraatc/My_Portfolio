@@ -1,77 +1,71 @@
 name: CI_CD_Pipeline
 
 on:
-  push: [main, master]
-  pull: [main, master]
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
   workflow_dispatch:
-
-
 
 jobs:
   CI_push:
     if: github.event_name == 'push'
+    runs-on: ubuntu-latest
 
-    run-on: ubuntu-latest
     defaults:
-    run:
-      working-directory: frontend
+      run:
+        working-directory: frontend
 
     steps:
-
-      - name: chackout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: set-up Node jobs
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with: 
           node-version: '21'
 
-      - name: install all dependency
+      - name: Install dependencies
         run: npm install
 
-      - name: build project
-        if: github.event_name == 'push'
+      - name: Build project
         run: npm run build
 
-      - name: Upload the build file to artifact
-        if: github.event_name == 'push'
+      - name: list all files
+        run: ls -la 
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: frontend/Deploy/
+          path: frontend/dist/   # change if your build folder is Deploy instead
 
-      
 
+      - name: list all files
+        run: ls -la 
 
   CD_Push:
-    
     needs: CI_push
     if: github.event_name == 'push' && needs.CI_push.result == 'success'
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: checkout code
-        uses: actions@checkout@v4
-
-
-      - name: setup Node js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '21'
 
-
-      - name: Download artifact from CI_push
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: build
-          path: ./frontend/Deploy/
+          path: ./frontend/dist/   # same as upload path
 
-
-      - name: build file checkout
-        run: ls -la ./frontend/Deploy
-
+      - name: Verify build files
+        run: ls -la ./Workflow_Practice/dist
 
       - name: Deploying to Vercel
-        run: echo "🚀Deploying the project"
-
+        run: echo "🚀 Deploying the project"
