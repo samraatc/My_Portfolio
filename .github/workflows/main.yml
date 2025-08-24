@@ -1,53 +1,89 @@
-# name : "CI Pipeline"
-# on:
-#   push:
-#     branches:
-#       - main
-#       - master
-#   pull_request:
-#     branches:
-#       - main
-#       - master
-#   workflow_dispatch:
+name: CI_CD_Pipeline
 
-# jobs:
-#   Build-and-test:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: "Checkout code"
-#         uses: actions/checkout@v4
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
 
-#       - name: "Set up Node.js"
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: '21'
+jobs:
+  CI_push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    environment: Production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with: 
+          node-version: '21'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: list all files
+        run: |
+          ls -la 
+          cat .env
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: frontend/dist/   # change if your build folder is Deploy instead
+
+
+      - name: list all files
+        run: ls -la 
+
+  CD_Push:
+    needs: CI_push
+    if: github.event_name == 'push' && needs.CI_push.result == 'success'
+    runs-on: ubuntu-latest
+    environment: Production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+
+      - name: install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ./frontend/dist/   # same as upload path
+
+      - name: Verify build files
+        run: ls -la ./frontend/dist
+
+      - name: Deploying to Vercel
+        run: echo "🚀 Deploying the project"
+        # env:
+          # VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          # VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          # VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
         
-#       - name: "clone the repository"
-#         uses: actions/checkout@v4
-
-#       - name: "Install dependencies"
-#         run: npm install
-
-#       - name: "Run Build "
-#         run: npm run build
-
-#       - name : "Upload Product-ready build file"
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: "product-ready-build"
-#           path: dist
-
-#   pull_request:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: "Checkout code"
-#         uses: actions/checkout@v4
-
-#       - name: "Set up Node.js"
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: '21'
-
-#       - name: "Install dependencies"
-#         run: npm install
-

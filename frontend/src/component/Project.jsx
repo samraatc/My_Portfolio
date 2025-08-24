@@ -37,7 +37,7 @@ export const Project = () => {
   if (error) return <p>Error: {error}</p>;
 
   const lightModeStyles = {
-    backgroundImage: 'url("https://img.freepik.com/free-photo/blue-toned-collection-paper-sheets-with-copy-space_23-2148320445.jpg?w=900&t=st=1709066598~exp=1709067198~hmac=c5c0995a7289d90e1e59f33310d419716d3975cedc8f97a8f31c119f7619dcaf")',
+    backgroundImage: 'url("https://www.udacity.com/_next/image?url=https%3A%2F%2Fvideo.udacity-data.com%2Ftopher%2F2024%2FOctober%2F670987fe_ud043%2Fud043.jpg&w=3840&q=75")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed',
