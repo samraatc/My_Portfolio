@@ -70,12 +70,13 @@ jobs:
         with:
           node-version: '21'
 
+      - name: install Vercel CLI
+        run: npm install -g vercel
+        
       - name: install dependencies
         run: npm install
         working-directory: frontend
 
-      - name: install Vercel CLI
-        run: npm install -g vercel
 
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -93,8 +94,8 @@ jobs:
 
       - name: Deploying to Vercel
         run: |
-         echo "🚀 Deploying the project"
-         vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --name=my-portfolio-prod
+          echo "🚀 Deploying the project"
+          vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --name=my-portfolio-prod
 
 
 
