@@ -86,10 +86,16 @@ jobs:
       - name: Verify build files
         run: ls -la ./frontend/dist
 
+      # - name: Deploying to Vercel
+      #   run: |
+      #     echo "🚀 Deploying the project"
+      #     vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --name=CI-CD-Production-Test
+
       - name: Deploying to Vercel
         run: |
-          echo "🚀 Deploying the project"
-          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm --name=CI-CD-Production-Test
+         echo "🚀 Deploying the project"
+         vercel deploy --prebuilt --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --name=my-portfolio-prod
+
 
 
         # env:
